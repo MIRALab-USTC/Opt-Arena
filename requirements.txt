@@ -1,0 +1,4 @@
+
+openai==2.14.0
+pandas==2.3.3
+ijson==3.5.0

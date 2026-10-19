@@ -1,0 +1,852 @@
+[
+  {
+    "type": "Big-M equality constraint",
+    "description": "Links a continuous variable with a binary variable using a large constant M, often to activate or deactivate terms.",
+    "example": "$ x = M y $, $ x_{ij} \\leq y_i \\cdot M $",
+    "index": 1,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Capacity linking constraint (binary variable)",
+    "description": "Limits a continuous variable by a constant multiplied with a binary variable, ensuring capacity activation only when binary is 1.",
+    "example": "$ x_i \\leq C y_i, x \\leq C y $",
+    "index": 2,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Pairwise comparison constraint",
+    "description": "Compares two variables directly, enforcing ordering or dominance relations.",
+    "example": "$ y \\leq x $, $ x \\leq y $, $ x \\geq y $, $ y \\geq x $",
+    "index": 3,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Generalized capacity constraint",
+    "description": "Relates continuous variables to capacity or binary activation using constants.",
+    "example": "$ x_i \\leq C y_i, x \\geq C y $",
+    "index": 4,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Binary variable linkage constraint",
+    "description": "Directly links the values of variables with or without binary coefficients.",
+    "example": "$ x_i \\leq y_i, x \\geq y $",
+    "index": 5,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.0495
+    }
+  },
+  {
+    "type": "Lower-bound activation constraint",
+    "description": "Forces a continuous variable to exceed a scaled binary value, enforcing minimum activation when binary=1.",
+    "example": "$ x_i \\geq C y_i, x \\geq C y $",
+    "index": 6,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.0495
+    }
+  },
+  {
+    "type": "Flow conservation constraint",
+    "description": "Balances inflow and outflow or total quantities across two sets of variables.",
+    "example": "$ \\sum x_i = \\sum y_j $",
+    "index": 7,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Inventory balance constraint",
+    "description": "Ensures inventory evolves correctly according to production and demand.",
+    "example": "$ I_{k,t-1} + x_{i,t} - I_{i,t} = D_{i,t} $",
+    "index": 8,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Absolute difference bound",
+    "description": "Restricts the absolute difference between two variables within a constant range.",
+    "example": "$ |x - y| \\leq C $",
+    "index": 9,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.25
+    }
+  },
+  {
+    "type": "Ceiling constraint",
+    "description": "Restricts one variable to be less than or equal to the ceiling of another scaled value.",
+    "example": "$ x < \\lceil C y \\rceil $",
+    "index": 10,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 3
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.67,
+      "difficulty_score": 0.7005
+    }
+  },
+  {
+    "type": "Geometric distance constraint",
+    "description": "Keeps a point (x, y) within a distance r from a line.",
+    "example": "$ \\frac{|a x + b y + c|}{\\sqrt{a^2 + b^2}} \\leq r $",
+    "index": 11,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.25
+    }
+  },
+  {
+    "type": "Assignment balance constraint",
+    "description": "Ensures sums over indices satisfy fixed totals or allocations.",
+    "example": "$ \\sum_k x_{ik} = a_i $, $ \\sum_i x_{ijk} = a_{jk} $",
+    "index": 12,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Binary domain constraint",
+    "description": "Forces a variable to be bounded or fixed at binary values.",
+    "example": "$ x \\leq 1 $, $ x \\geq 1 $",
+    "index": 13,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Zero constraint",
+    "description": "Fixes a variable to zero, often used to deactivate variables.",
+    "example": "$ x = 0 $",
+    "index": 14,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Upper-bound constraint",
+    "description": "Limits a variable by a constant upper bound.",
+    "example": "$ x \\leq a $",
+    "index": 15,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Equality constraint (fixed value)",
+    "description": "Forces a variable to take a fixed constant value.",
+    "example": "$ x = a $",
+    "index": 16,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Unit constraint",
+    "description": "Fixes a variable to 1, typically for binary activation.",
+    "example": "$ x = 1 $",
+    "index": 17,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Ratio constraint",
+    "description": "Constrains the weighted average of variables to meet a threshold.",
+    "example": "$ \\frac{\\sum a_i x_i}{\\sum x_i} \\geq c $, $ \\frac{\\sum a_i x_i}{\\sum x_i} \\leq c $",
+    "index": 18,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Flow balance constraint",
+    "description": "Ensures inflow equals outflow in a network.",
+    "example": "$ \\sum_j x_{ij} = \\sum_j x_{ji} $",
+    "index": 19,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Capacity with binary activation",
+    "description": "Restricts total assigned value based on binary variable activation.",
+    "example": "$ \\sum_i a_i x_{ij} \\leq C y_j $",
+    "index": 20,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Assignment capacity constraint",
+    "description": "Limits total assignment per entity to 1.",
+    "example": "$ \\sum_i a_i x_{ij} \\leq 1 $",
+    "index": 21,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Summation bound constraint",
+    "description": "Places upper or lower bounds on sums of variables.",
+    "example": "$ \\sum_i x_i \\geq C $, $ \\sum_i x_{ij} \\leq C $",
+    "index": 22,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Linear difference constraint",
+    "description": "Relates two variables through linear equality or inequality.",
+    "example": "$ x - y = c $, $ x + y \\leq c $",
+    "index": 23,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Weighted sum lower bound",
+    "description": "Forces a weighted sum to exceed a constant threshold.",
+    "example": "$ \\sum_i a_i x_i \\geq C $",
+    "index": 24,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Weighted sum upper bound",
+    "description": "Forces a weighted sum not to exceed a constant limit.",
+    "example": "$ \\sum_i a_i x_i \\leq C $",
+    "index": 25,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Conditional proportional constraint",
+    "description": "Links total sum to a binary variable proportionally.",
+    "example": "$ \\sum_i x_i = C y $",
+    "index": 26,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Total sum constraint",
+    "description": "Fixes the total sum of variables to a constant.",
+    "example": "$ \\sum_j x_j = C $",
+    "index": 27,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Resource lower bound",
+    "description": "Ensures a variable exceeds a weighted combination of other variables.",
+    "example": "$ x_i \\geq \\sum_i a_i y_{ij} $",
+    "index": 28,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Supply–demand link constraint",
+    "description": "Links production and flow decisions to capacity or binary activations.",
+    "example": "$ \\sum_j x_{ij} = \\sum_i s_i y_i $, $ x_{ij} \\leq u_{ij} x_{ij} $",
+    "index": 29,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Proportional allocation constraint",
+    "description": "Binds a flow variable to its related capacity variable.",
+    "example": "$ x_{ij} \\leq a_i y_i $",
+    "index": 30,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.0495
+    }
+  },
+  {
+    "type": "Double-sum equality constraint",
+    "description": "Fixes total flow or allocation over all indices.",
+    "example": "$ \\sum_i \\sum_j x_{ij} = C $",
+    "index": 31,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Conditional implication constraint",
+    "description": "Enforces constraints conditionally using logical implication or indicator functions.",
+    "example": "$(x_{01}=1) \\Rightarrow x_{i0}+x_{i2}+x_{i3}=0$",
+    "index": 32,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Conditional 'and' constraint",
+    "description": "Applies a restriction only if multiple binary conditions hold simultaneously.",
+    "example": "if $x_{ij_0}=1$ and $x_{1j_1}=1$, then $|j_0-j_1| \\leq D$",
+    "index": 33,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Big-M binary activation constraint",
+    "description": "Activates or relaxes constraints based on binary variable values.",
+    "example": "$ C \\leq \\sum a_{ij} y_j + M(1 - y_j) $",
+    "index": 34,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "TSP subtour elimination constraint",
+    "description": "Prevents subtours in the traveling salesman problem formulation.",
+    "example": "$ u_i - u_j + n x_{ij} \\leq n - 1 $",
+    "index": 35,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "No",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.2995
+    }
+  },
+  {
+    "type": "Production–demand balance constraint",
+    "description": "Ensures the net production equals market demand for each container type.",
+    "example": "$ x_i + \\sum_{j \\geq i} S_{ji} - \\sum_{j \\leq i} S_{ij} = d_i $",
+    "index": 36,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Sequential scheduling constraint",
+    "description": "Maintains processing order consistency across stages using big-M logic.",
+    "example": "$ S_{ij} \\geq S_{i'j} + P_{i'j} - M(1 - x_{ik}) - M(1 - x_{i'(k+1)}) $",
+    "index": 37,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Subtour elimination (set form)",
+    "description": "Ensures connectivity by preventing closed loops in routing.",
+    "example": "$ \\sum_{i \\in S} \\sum_{j \\in S, j \\neq i} x_{ij} \\leq |S| - 1 $",
+    "index": 38,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.25
+    }
+  },
+  {
+    "type": "Initial period production balance",
+    "description": "Ensures initial production equals sales plus inventory.",
+    "example": "$ P_{0,0} = S_{0,0} + I_{0,0} $",
+    "index": 39,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Blending ratio constraint",
+    "description": "Enforces desired blending proportions among ingredients.",
+    "example": "$ \\sum c_{ij} x_i = b_j \\sum x_i $",
+    "index": 40,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Non-overlapping scheduling constraint",
+    "description": "Ensures two tasks on the same machine do not overlap in time.",
+    "example": "$ x_{i1} + t_{i1} \\leq x_{k1} \\text{ OR } x_{k1} + t_{k1} \\leq x_{i1} $",
+    "index": 41,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Big-M scheduling constraint",
+    "description": "Uses big-M to enforce minimum separation between two events, like aircraft takeoffs.",
+    "example": "$ t_1 \\geq t_0 + 7 - M (1 - y_{0,1}) $",
+    "index": 42,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.39949999999999997
+    }
+  },
+  {
+    "type": "Demand Satisfaction Constraint",
+    "description": "Ensures that the total supply to each store matches its exact demand.",
+    "example": "∑ x_{ij} = Demand_j for each store j",
+    "index": 43,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Cumulative demand must be met constraint",
+    "description": "Ensures that the cumulative sum of a variable meets or exceeds a demand over a specified period.",
+    "example": "sum(tau=0 to t) x_A[tau] >= D_A[t] for all t",
+    "index": 44,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Cumulative demand constraint",
+    "description": "Ensures that the cumulative sum of a variable over time meets or exceeds a specified demand for each time period.",
+    "example": "sum(tau=0 to t) x_B[tau] >= D_B[t] for all t",
+    "index": 45,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Non-Negativity constraint",
+    "description": "Ensures that certain variables representing quantities, inventory levels, or backlogs cannot take negative values.",
+    "example": "q_{i,j,t}, I_{i,t}, B_{i,t} ≥ 0 ∀ i, j, t",
+    "index": 46,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Coverage Requirement",
+    "description": "Ensures that each area is covered by at least one active cell tower, typically involving binary variables indicating whether a tower is active or not.",
+    "example": "∑_{i} y_i ≥ 1 for each area j",
+    "index": 47,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Integer variable constraint",
+    "description": "Ensures that a variable takes on integer values, typically used when the variable represents discrete quantities.",
+    "example": "x_i ∈ ℤ",
+    "index": 48,
+    "difficulty": {
+      "auxiliary_variables": "No",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 0,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.0
+    }
+  },
+  {
+    "type": "Fixed cost constraint",
+    "description": "Incurred fixed costs when a binary decision variable indicates that a certain action (like shipping) is taken.",
+    "example": "If shipping occurs from Node 0 to Node 1, then cost = $769.",
+    "index": 49,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "Yes",
+      "variable_types_count": 2
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 1,
+      "variable_types_score": 0.33,
+      "difficulty_score": 0.6495
+    }
+  },
+  {
+    "type": "Makespan constraint",
+    "description": "Ensures that the makespan is at least a specified duration greater than the finish time of every operation.",
+    "example": "Makespan >= finish_time_i + 1 for all operations i",
+    "index": 50,
+    "difficulty": {
+      "auxiliary_variables": "Yes",
+      "advanced_techniques": "No",
+      "variable_types_count": 1
+    },
+    "difficulty_scores": {
+      "auxiliary_variables_score": 1,
+      "advanced_techniques_score": 0,
+      "variable_types_score": 0,
+      "difficulty_score": 0.25
+    }
+  }
+]

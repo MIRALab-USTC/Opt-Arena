@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the Opt-Arena paper."
+title: "Opt-Arena: Optimization Modeling Data Analysis and Generation"
+authors:
+  - family-names: Xu
+    given-names: Yian
+  - family-names: Han
+    given-names: Xiongwei
+  - family-names: Wang
+    given-names: Jie
+  - family-names: Liu
+    given-names: Haoyang
+  - family-names: Cai
+    given-names: Yuyang
+  - family-names: Niu
+    given-names: Boxuan
+  - family-names: Yuan
+    given-names: Mingxuan
+preferred-citation:
+  type: conference-paper
+  title: "Opt-Arena: Evaluating, Selecting, and Generating Optimization Modeling Data via Tripartite Graphs"
+  authors:
+    - family-names: Xu
+      given-names: Yian
+    - family-names: Han
+      given-names: Xiongwei
+    - family-names: Wang
+      given-names: Jie
+    - family-names: Liu
+      given-names: Haoyang
+    - family-names: Cai
+      given-names: Yuyang
+    - family-names: Niu
+      given-names: Boxuan
+    - family-names: Yuan
+      given-names: Mingxuan
+  conference:
+    name: "The Fortieth Annual Conference on Neural Information Processing Systems"
+  year: 2026
+  url: "https://openreview.net/forum?id=HKMOHcifiP"

@@ -1,0 +1,282 @@
+[
+  {
+    "problem": "Traveling Salesman Problem",
+    "description": "Find the minimum-cost closed tour that visits each city exactly once and returns to the starting point.",
+    "example": "A technician must visit every client site once and return to the depot."
+  },
+  {
+    "problem": "Capacitated Vehicle Routing Problem",
+    "description": "Determine minimum-cost vehicle routes that start and end at a depot while respecting vehicle capacity limits.",
+    "example": "Delivery trucks must serve customers without exceeding load limits."
+  },
+  {
+    "problem": "Vehicle Routing with Time Windows",
+    "description": "Plan vehicle routes so each customer is served within a specified time window while routing constraints are satisfied.",
+    "example": "Grocery delivery requires visiting households within scheduled 2-hour windows."
+  },
+  {
+    "problem": "Pickup and Delivery Routing",
+    "description": "Plan routes that satisfy paired pickup and drop-off requests, including pairing, pickup-before-delivery precedence, and possible timing, capacity, or service-quality constraints.",
+    "example": "A courier or paratransit operator must pick up passengers or parcels and deliver them to paired destinations."
+  },
+  {
+    "problem": "Team Orienteering Problem",
+    "description": "Select a subset of nodes to visit and construct feasible routes to maximize collected reward under route length or time limits.",
+    "example": "A tourist route planner selects the best attractions under time limits."
+  },
+  {
+    "problem": "Inventory Routing Problem",
+    "description": "Simultaneously optimize vehicle routing and inventory replenishment decisions over time.",
+    "example": "A vendor must decide when and where to deliver fuel to gas stations."
+  },
+  {
+    "problem": "Shortest Path Problem",
+    "description": "Find the minimum-cost path between a source node and a destination node in a network.",
+    "example": "Navigation software computes the fastest route to your destination."
+  },
+  {
+    "problem": "Minimum Spanning Tree",
+    "description": "Connect all nodes with minimum total edge cost while avoiding cycles.",
+    "example": "Building a low-cost fiber-optic communication network."
+  },
+  {
+    "problem": "Steiner Tree Problem",
+    "description": "Connect selected terminal nodes with minimum total cost, allowing additional intermediate nodes when beneficial.",
+    "example": "Designing power distribution lines with added junction points."
+  },
+  {
+    "problem": "Maximum Flow Problem",
+    "description": "Find the maximum amount of flow that can be sent from a source to a sink through a capacitated network.",
+    "example": "Determine the maximum water that can flow through a pipe system."
+  },
+  {
+    "problem": "Minimum Cost Flow Problem",
+    "description": "Send required flow through a capacitated network at minimum total transportation or operating cost.",
+    "example": "Optimizing product shipments in a logistics network."
+  },
+  {
+    "problem": "Assignment Problem",
+    "description": "Assign agents to tasks with minimum total cost or maximum total benefit, usually with one-to-one assignment constraints.",
+    "example": "Assigning workers to machines to minimize processing time."
+  },
+  {
+    "problem": "Generalized Assignment Problem",
+    "description": "Assign tasks, items, vehicles, or workloads to agents, bins, or resources while respecting capacity or availability limits and assignment-dependent costs or benefits.",
+    "example": "Assign workloads or aircraft types to limited resources while satisfying capacity and operational constraints."
+  },
+  {
+    "problem": "Quadratic Assignment Problem",
+    "description": "Assign facilities to locations to minimize interaction flow multiplied by pairwise distance costs.",
+    "example": "Placing departments in a factory to minimize transportation effort."
+  },
+  {
+    "problem": "Knapsack Problem",
+    "description": "Select items to maximize total value without exceeding a capacity limit.",
+    "example": "Selecting advertisements given limited budget."
+  },
+  {
+    "problem": "Multiple Knapsack Problem",
+    "description": "Assign selected items to multiple capacity-limited knapsacks or bins to maximize total value.",
+    "example": "Assigning shipments to trucks of different capacities."
+  },
+  {
+    "problem": "Multi-dimensional Knapsack",
+    "description": "Select items to maximize total value while satisfying multiple resource or capacity constraints.",
+    "example": "Selecting projects with limits on budget, labor, and equipment."
+  },
+  {
+    "problem": "Bin Packing Problem",
+    "description": "Pack all items into the fewest number of bins without exceeding bin capacities.",
+    "example": "Loading packages into the smallest number of delivery trucks."
+  },
+  {
+    "problem": "Cutting Stock Problem",
+    "description": "Cut raw materials into required sizes or patterns while minimizing waste or material usage.",
+    "example": "Cutting steel rolls into custom widths with minimum scrap."
+  },
+  {
+    "problem": "Strip Packing Problem",
+    "description": "Pack rectangles into a strip of fixed width while minimizing the used height or length.",
+    "example": "Arranging ads on a newspaper page to minimize page length."
+  },
+  {
+    "problem": "Set Cover Problem",
+    "description": "Select the fewest or minimum-cost sets so that each required element is covered at least once or to a required coverage level.",
+    "example": "Choose minimal warehouse locations, teams, or bundles to cover all required zones, skills, or preferences."
+  },
+  {
+    "problem": "Set Packing Problem",
+    "description": "Select mutually disjoint sets to maximize total value or the number of selected sets.",
+    "example": "Choosing non-overlapping marketing campaigns."
+  },
+  {
+    "problem": "Set Partitioning Problem",
+    "description": "Select disjoint sets so that every element is covered exactly once.",
+    "example": "Assigning flight crews so every flight is covered without overlap."
+  },
+  {
+    "problem": "Job Shop Scheduling",
+    "description": "Schedule jobs consisting of ordered operations on specific machines to optimize completion time or related performance measures.",
+    "example": "Scheduling complex manufacturing processes across machines."
+  },
+  {
+    "problem": "Flow Shop Scheduling",
+    "description": "Schedule jobs that all follow the same machine order, usually to minimize makespan or total completion time.",
+    "example": "Assembly line scheduling in automotive production."
+  },
+  {
+    "problem": "Open Shop Scheduling",
+    "description": "Schedule operations that can be processed in any order while ensuring each job and machine handles at most one operation at a time.",
+    "example": "Laboratory experiments that require shared equipment."
+  },
+  {
+    "problem": "Parallel Machine Scheduling",
+    "description": "Assign and sequence jobs on multiple machines, which may be identical, uniform, or unrelated.",
+    "example": "Distributing computational tasks across cloud servers."
+  },
+  {
+    "problem": "Flexible Job Shop Scheduling",
+    "description": "Schedule job operations when each operation may be processed by one of several alternative machines.",
+    "example": "Manufacturing where machines can substitute for each other."
+  },
+  {
+    "problem": "Project Scheduling (PERT/CPM)",
+    "description": "Schedule project tasks with precedence constraints to determine or minimize project duration.",
+    "example": "Construction project planning with task dependencies."
+  },
+  {
+    "problem": "Resource-Constrained Project Scheduling",
+    "description": "Schedule project tasks with precedence constraints under limited renewable or nonrenewable resources.",
+    "example": "Assigning workers and equipment in a construction project."
+  },
+  {
+    "problem": "Facility Location Problem",
+    "description": "Select facility sites and assign demand to facilities to minimize opening, service, or transportation costs.",
+    "example": "Choosing distribution center locations."
+  },
+  {
+    "problem": "k-Median Problem",
+    "description": "Place k facilities to minimize total or average customer distance to the nearest selected facility.",
+    "example": "Choosing k hospitals to reduce average travel time."
+  },
+  {
+    "problem": "k-Center Problem",
+    "description": "Place k facilities to minimize the maximum distance from any customer to its nearest selected facility.",
+    "example": "Selecting disaster relief hubs to minimize worst-case response time."
+  },
+  {
+    "problem": "Hub Location Problem",
+    "description": "Select hub nodes and allocate flows through hubs to minimize total transportation or connection cost.",
+    "example": "Airline hub-and-spoke network design."
+  },
+  {
+    "problem": "Network Design Problem",
+    "description": "Select network edges, arcs, lines, capacities, or service levels to minimize cost while satisfying connectivity, flow, demand, or service requirements.",
+    "example": "Design a telecommunications backbone or transit network by selecting links or lines under budget and service constraints."
+  },
+  {
+    "problem": "Graph Coloring Problem",
+    "description": "Assign colors to nodes so adjacent nodes receive different colors, often minimizing the number of colors used.",
+    "example": "Assigning wireless frequencies to avoid interference."
+  },
+  {
+    "problem": "Maximum Clique Problem",
+    "description": "Find the largest or highest-weight subset of nodes that are all pairwise connected.",
+    "example": "Detecting tightly clustered communities in a social network."
+  },
+  {
+    "problem": "Maximum Independent Set",
+    "description": "Find the largest or highest-weight subset of nodes with no edges between any selected pair.",
+    "example": "Selecting non-conflicting events in a schedule."
+  },
+  {
+    "problem": "Maximum Coverage Problem",
+    "description": "Select a limited number of sets to maximize the number or weight of covered elements.",
+    "example": "Choosing store locations to maximize population coverage."
+  },
+  {
+    "problem": "Portfolio Optimization",
+    "description": "Allocate investments to optimize expected return, risk, or diversification under budget and risk constraints.",
+    "example": "Choosing a stock portfolio with volatility constraints."
+  },
+  {
+    "problem": "Newsvendor Problem",
+    "description": "Choose an order quantity under uncertain demand to balance shortage and overstock costs.",
+    "example": "Retailer ordering newspapers with uncertain demand."
+  },
+  {
+    "problem": "Lot Sizing Problem",
+    "description": "Determine production or order quantities over multiple periods to meet demand while minimizing setup, production, and inventory costs.",
+    "example": "Factory planning weekly production to meet fluctuating demand."
+  },
+  {
+    "problem": "Stochastic Programming Problem",
+    "description": "Optimize decisions when uncertain parameters are represented by probability distributions or scenarios.",
+    "example": "Deciding power generation with uncertain renewable output."
+  },
+  {
+    "problem": "Robust Optimization Problem",
+    "description": "Optimize decisions to remain feasible or perform well under worst-case realizations within an uncertainty set.",
+    "example": "Allocating resources when demand is uncertain but bounded."
+  },
+  {
+    "problem": "Bilevel Optimization Problem",
+    "description": "Optimize upper-level decisions while accounting for lower-level decisions that are themselves solutions to another optimization problem.",
+    "example": "Setting toll prices while users choose shortest paths."
+  },
+  {
+    "problem": "Multi-objective Optimization Problem",
+    "description": "Optimize multiple potentially conflicting objectives and characterize trade-offs among them.",
+    "example": "Balancing delivery cost and service quality in routing."
+  },
+  {
+    "problem": "Queueing System Optimization",
+    "description": "Optimize staffing, capacity, routing, admission, or service decisions in systems with waiting lines or queueing networks.",
+    "example": "Staffing cashiers to minimize customer waiting time."
+  },
+  {
+    "problem": "Scheduling with Time Windows",
+    "description": "Schedule tasks or services so that each activity occurs within its allowed time interval while satisfying resource or sequencing constraints.",
+    "example": "Assigning maintenance time slots to minimize machine downtime."
+  },
+  {
+    "problem": "Production Planning Problem",
+    "description": "Determine production quantities of one or more products to maximize profit or minimize cost under resource, demand, and capacity constraints.",
+    "example": "A factory produces two furniture types using limited labor and wood; decide production levels to maximize profit."
+  },
+  {
+    "problem": "Resource Allocation Linear Programming",
+    "description": "Allocate limited resources such as time, labor, budget, production, seats, electricity, or capacity among activities, contracts, or demands to maximize benefit or minimize cost.",
+    "example": "Allocate limited production, labor, or capacity across competing demands while satisfying resource and requirement constraints."
+  },
+  {
+    "problem": "Blending Problem",
+    "description": "Mix raw materials or choose component proportions to minimize cost or optimize quality while meeting component, property, or specification constraints.",
+    "example": "Blend two types of crude oil to satisfy sulfur and octane requirements at minimum cost."
+  },
+  {
+    "problem": "Diet Problem",
+    "description": "Select quantities of foods or ingredients to satisfy nutritional requirements at minimum cost.",
+    "example": "Choose daily food portions to meet protein and vitamin constraints while minimizing total spending."
+  },
+  {
+    "problem": "Geometric Design Optimization",
+    "description": "Optimize dimensions or shapes of geometric objects to minimize cost, material use, surface area, or packaging waste under volume or performance requirements.",
+    "example": "Find the height and radius of a cylindrical can that minimizes material cost while holding 1 liter."
+  },
+  {
+    "problem": "Unit Commitment Problem",
+    "description": "Determine generator on/off schedules, startup decisions, and power outputs over time to minimize operational and startup costs while meeting demand and operational constraints.",
+    "example": "Decide which generators operate in each time period and how much power they produce to satisfy hourly demand."
+  },
+  {
+    "problem": "Maximum Weight Subset Selection with Pairwise Interactions",
+    "description": "Select a fixed-size or constrained subset of items to maximize pairwise interaction values counted only when both items in a pair are selected.",
+    "example": "Choose a subset of items that yields the highest total interaction score among selected pairs."
+  },
+  {
+    "problem": "Aircraft Landing Scheduling Problem",
+    "description": "Schedule landing times and landing order for aircraft while satisfying time windows, separation requirements, and early or late landing penalties.",
+    "example": "Assign landing times to aircraft while observing required separation times and minimizing total deviation penalties."
+  }
+]

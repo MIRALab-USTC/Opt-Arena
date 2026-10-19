@@ -1,0 +1,47 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+auth.json
+*credentials*.json
+*token*.json
+
+# Python and editor state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.DS_Store
+
+# Local inputs, outputs, checkpoints, and logs
+/data/
+/outputs/
+/results/
+/logs/
+*.log
+*.jsonl
+*_progress.json
+*_temp_*.json
+new_constraint_types_log.json
+unknown_problems*.json
+unmatched_atomic_info.json
+OptMATH-Train-*.json
+1-info_and_constraints*.json
+2.1-with_problem_type.json
+3-with_constraint_types*.json
+4.0-with_atom_info.json
+*with_scenarios*.json
+*with_difficulties*.json
+
+# Model artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.onnx
