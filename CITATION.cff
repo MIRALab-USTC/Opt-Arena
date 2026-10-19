@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the Opt-Arena paper."
-title: "Opt-Arena: Optimization Modeling Data Analysis and Generation"
+title: "Opt-Arena: Evaluating, Selecting, and Generating Optimization Modeling Data via Tripartite Graphs"
 authors:
   - family-names: Xu
     given-names: Yian

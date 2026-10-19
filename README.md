@@ -1,139 +1,136 @@
-# OptMATH: Optimization Problem Analysis and Generation
+# Opt-Arena: Evaluating, Selecting, and Generating Optimization Modeling Data via Tripartite Graphs
 
-This repository contains research code for processing natural-language mathematical optimization problems. It provides an LLM-assisted difficulty analysis interface, a problem generation interface, and scripts for building annotations such as problem types, constraint types, atomic information, and scenario labels. Running the LLM workflows can incur provider charges.
+**Accepted at NeurIPS 2026** · [Paper](https://openreview.net/forum?id=HKMOHcifiP) · [GitHub](https://github.com/Xu-Yian/Opt-Arena)
 
-The repository contains reference JSON catalogs, but it does not contain the source problem dataset or every intermediate file used by the legacy scripts. A complete data processing run requires those inputs.
+## Overview
 
-## Key features
+Optimization modeling datasets often repeat familiar structures while underrepresenting other constraint patterns. Opt-Arena uses **Atomic Modeling Information (AMI)**—small, modeling-relevant pieces of a problem—to expose this imbalance. Linking problems, AMIs, and constraints in a tripartite graph provides a common representation for assessing structural coverage, redundancy, and difficulty.
 
-- Analyze one problem or a JSONL collection: derive or accept a mathematical model, extract atomic information, classify problem and constraint types, match kernels, and calculate difficulty scores.
-- Generate problems by requested type counts or from kernels observed in prior analysis results.
-- Rebuild selected annotations with standalone scripts for atomic information, classifications, merged atom information, scenario labels, and difficulty scores.
-- Load the supplied catalogs of 56 problem types, 50 scored constraint types, atomic information groups, and kernel combinations. These counts describe files, not evaluation results.
+The framework connects three goals: **evaluate** dataset structure, **select** informative problems with less redundancy, and **generate** problems by recombining AMI kernels with additional modeling information. This release contains analysis and generation interfaces, a score-based selection utility, reference catalogs, and an evaluation dataset.
 
-## Repository structure
+## Framework
 
-| Path | Purpose |
-| --- | --- |
-| problem_difficulty_interface.py | Single-problem and JSONL difficulty analysis entry point. |
-| problem_generation_interface.py | Manual and similarity-based problem generation entry point. |
-| generate_problem_manual_mode.py | Bundled prompt templates and a standalone legacy generation workflow. |
-| problem_type.json | Problem type catalog. |
-| constraints_with_difficulty_scores-train.json | Constraint type catalog with difficulty scores. |
-| atomic_info_all-2.json, classified_atomic_info_groups.json | Atomic information reference groups. |
-| kernel_combinations.json | Kernel and combination frequency reference data. |
-| generate_info_and_constraints.py, classify_problems.py, classify_optmath_constraints.py | Legacy LLM annotation stages. |
-| multiprocess_add_atom_info.py, calculate_constraint_difficulty_scores.py, calculate_optmath_problem_difficulty.py, delete_problem.py | Legacy processing and scoring utilities. |
-| graph/ | Numbered annotation and scenario stages. The first two mirror root scripts except for relative path setup. |
-| DIFFICULTY_INTERFACE.md, GENERATION_INTERFACE.md | Interface details and record schemas. |
-| .env.example, .gitignore, requirements.txt, CITATION.cff | Environment example, publication exclusions, dependencies, and citation metadata. |
-| LICENSE, DATA_LICENSE.md | Code and documentation license; separate license for five reference JSON catalogs. |
+![Opt-Arena framework: problem–AMI–constraint representation, structural evaluation, core-set selection, and kernel-driven generation](framework.png)
 
-The five root JSON files are reference inputs. Place source datasets, generated JSON/JSONL, logs, progress markers, model weights, and credentials in ignored local directories.
+1. **Graph construction:** Extract AMIs, associate them with mathematical constraints, and classify problem and constraint types to form the Problem–AMI–Constraint graph.
+2. **Data evaluation:** Measure structural coverage through observed AMI and constraint types, overlap through repeated AMI occurrences, and difficulty through constraint types and dimensionality. The analysis interface also aggregates dataset statistics.
+3. **Data selection:** The paper's structure-aware Core-Set selection considers **Coverage**, **Overlap**, and **Difficulty** together under a data budget: retain modeling structures and challenging examples while avoiding repeated information. This is the research objective for the 5K training Core-Set; the released filtering script implements a narrower heuristic described below.
+4. **Data generation:** Sample kernels for a problem type, add compatible AMIs from the catalog, and prompt a model to create descriptions and formulations. A second mode starts from kernels found in earlier analyses.
+
+## Key Features
+
+- Per-problem and JSONL batch analysis with AMI extraction, constraint classification, kernel matching, and difficulty scores.
+- Dataset-level type distributions and AMI overlap summaries.
+- Offline, coverage-preserving score filtering of annotated problems.
+- Manual and analysis-guided problem generation.
+
+## Released Datasets
+
+| Dataset | Instances | Format | Description |
+| --- | ---: | --- | --- |
+| [Opt-Arena Eval](Opt-Arena%20Eval.jsonl) | 405 | JSONL | Evaluation problems with English questions, reference answers, and problem-type labels. |
+
+**Opt-Arena Eval** provides question–answer instances for assessing optimization modeling across varied problem families. Its 55 problem-type labels provide breadth at the problem-type level; AMI-level structural diversity can be examined with the framework's evaluation methods. This **405-instance evaluation set is distinct from the paper's 5K training Core-Set**.
+
+Each line is a JSON object with `en_question` (English problem statement), `en_answer` (reference answer stored as a string), and `problem_type` (problem-family label). All 405 records contain these three fields.
+
+~~~python
+import json
+
+with open("Opt-Arena Eval.jsonl", encoding="utf-8") as f:
+    records = [json.loads(line) for line in f if line.strip()]
+
+print(len(records))  # 405
+print(records[0]["problem_type"])
+~~~
+
+The five `data/` JSON files are reference catalogs, not additional problem splits: 56 problem types, 50 scored constraint types, 1,721 AMI group records, 536 classified AMI group records, and a kernel-combinations catalog.
+
+## Repository Structure
+
+~~~text
+Opt-Arena Eval.jsonl   Evaluation question–answer records
+data/                  Problem, constraint, AMI, and kernel reference catalogs
+evaluation/            Analysis interface and difficulty-scoring scripts
+seletion/              Score-based filtering and cleanup
+generation/            Generation interface, prompt module, and annotation scripts
+classify/              Problem and constraint classification scripts
+graph_construction/    Numbered annotation and scenario stages
+~~~
 
 ## Installation
 
-The pinned dependencies in requirements.txt match the tested vllm_eval environment with Python 3.10.20. From the repository root, activate that environment and install the direct dependencies if needed:
+Python 3.10 was used in the project's `vllm_eval` environment. From the repository root:
 
 ~~~bash
-conda activate vllm_eval
 python -m pip install -r requirements.txt
 ~~~
 
-A fresh Python 3.10 environment can also install the same requirements.
-
-Direct Python dependencies are openai, pandas, and ijson. The main interfaces use openai; the bundled standalone generation module also uses pandas and ijson. The repository does not import vllm. Select the backend model and provider separately. Gurobi and its license are needed only to execute generated Gurobi Python code. Generating its text does not require gurobipy.
-
-## Quick start
-
-This offline command checks that the bundled reference catalogs load without an API key:
-
-~~~bash
-python - <<'PY'
-from problem_difficulty_interface import load_analysis_resources
-resources = load_analysis_resources()
-print(len(resources["problem_types"]), "problem types")
-print(len(resources["constraint_catalog"]), "constraint types")
-PY
-~~~
-
-To run an analysis, configure an API key and compatible model:
-
-~~~bash
-export OPT_ARENA_API_KEY="your-key"
-export OPT_ARENA_MODEL="your-model-name"
-# Set OPT_ARENA_BASE_URL if your provider requires a custom endpoint.
-mkdir -p outputs
-python problem_difficulty_interface.py \
-  --question "A factory must allocate limited machine hours to products to maximize profit." \
-  --output outputs/example_difficulty.json
-~~~
-
-The analysis command invokes the model and has not been exercised in the publication checks.
+Direct dependencies are `openai`, `pandas`, and `ijson`. Analysis and generation require an OpenAI-compatible API credential. Set `OPT_ARENA_API_KEY` and `OPT_ARENA_MODEL`, plus `OPT_ARENA_BASE_URL` if your provider needs a custom endpoint. See [.env.example](.env.example). Executing generated Gurobi code separately requires Gurobi and a suitable license.
 
 ## Usage
 
-### Difficulty analysis
+Run these commands from the repository root. Explicit catalog paths account for the current `data/` layout.
 
-Run "python problem_difficulty_interface.py --help" for all arguments. Supplying --modeling or --modeling-file skips the formulation call; the remaining analysis still calls the LLM. For batch input, use --input-jsonl path/to/problems.jsonl --output-jsonl outputs/difficulty.jsonl. Input records must include a question field; [DIFFICULTY_INTERFACE.md](DIFFICULTY_INTERFACE.md) documents accepted fields and output structure. The interface writes a statistics file alongside JSONL output unless --stats-output is set.
-
-### Problem generation
-
-The generation interface uses the bundled generate_problem_manual_mode.py prompt module by default. The module defines get_prompts_direct(problem_type) and get_prompts_complex(problem_type, mapped), returning prompt templates with p, m, c, and nl keys. Override it with --prompt-module-file only if you have another compatible implementation.
-
-After configuring the API:
+### Data Evaluation
 
 ~~~bash
+export OPT_ARENA_API_KEY="your-api-key"
+export OPT_ARENA_MODEL="your-model-name"
 mkdir -p outputs
-python problem_generation_interface.py \
-  --mode manual \
-  --type-counts '{"Production Planning Problem": 1}' \
+python evaluation/problem_difficulty_interface.py \
+  --question "A factory allocates limited machine hours to maximize profit." \
+  --problem-types-file data/problem_type.json \
+  --constraint-catalog-file data/constraints_with_difficulty_scores.json \
+  --atomic-groups-file data/atomic_info_all-2.json \
+  --kernel-combinations-file data/kernel_combinations.json \
+  --output outputs/analysis.json
+~~~
+
+For batches, use `--input-jsonl INPUT.jsonl --output-jsonl outputs/analysis.jsonl`. The input needs a supported question field such as `question`; the released dataset's `en_question` field requires mapping first. See [evaluation/DIFFICULTY_INTERFACE.md](evaluation/DIFFICULTY_INTERFACE.md) for accepted fields and results. Analysis invokes an API.
+
+### Data Selection
+
+The available script is a **score-based greedy heuristic**, not an implementation of the paper's complete Core-Set optimization method. It ranks annotated problems by weighted difficulty minus mean AMI occurrence count, then attempts to remove low-scoring problems without eliminating the last occurrence of an AMI or scenario. It reads `6-with_difficulties_valid_scenarios_only.json` and `atomic_info_occurrences.json` from `OPTMATH_DATA_DIR`. Point it to a directory containing those inputs:
+
+~~~bash
+OPTMATH_DATA_DIR="/path/to/annotated-data" python seletion/filter_problems_by_score.py
+~~~
+
+It tries to retain 5,000 problems while preserving AMI and scenario coverage, and writes `filtered_kept_problems_200.json` and `filtered_deleted_problems_200.json` to the same directory. The `_200` suffix is an existing filename, not the target size. This step runs offline.
+
+### Data Generation
+
+~~~bash
+python generation/problem_generation_interface.py \
+  --mode manual --type-counts '{"Production Planning Problem": 1}' \
+  --problem-types-file data/problem_type.json \
+  --kernels-file data/kernel_combinations.json \
+  --atomic-all-file data/atomic_info_all-2.json \
+  --constraints-file data/constraints_with_difficulty_scores.json \
   --output-jsonl outputs/generated.jsonl
 ~~~
 
-Use --mode similar --analysis-jsonl outputs/difficulty.jsonl to sample from kernels in prior difficulty results. problem_types_atomic_info_statistics.json is optional and absent here; if available, supply it with --pt-stats-file. See [GENERATION_INTERFACE.md](GENERATION_INTERFACE.md) for generation modes and output schema. This command requires a working API account and makes paid model requests.
+For kernel-guided generation from analysis output, use `--mode similar --analysis-jsonl outputs/analysis.jsonl` instead of `--mode manual --type-counts ...`. See [generation/GENERATION_INTERFACE.md](generation/GENERATION_INTERFACE.md) for modes and output fields. Generation invokes an API.
 
-### Legacy data pipeline
+## Reproducibility
 
-The older annotation scripts use OPTMATH_DATA_DIR for missing source and intermediate files, defaulting to ./data. The standalone generate_problem_manual_mode.py script uses the bundled catalogs, an optional statistics file under ./data, and the ignored ./outputs directory by default. They preserve the original batch parameters and filenames. Their specific input JSON schemas are required; this checkout alone is not a turnkey pipeline. In particular, OptMATH-Train-100k_converted.json, some constraint catalogs, and several later intermediate files are absent. Set OPTMATH_DATA_DIR to a local directory holding those files. Keep it outside Git or under the ignored data/ directory.
-
-The numbered scripts in graph/ are related stages. Their input filenames show that additional merging or reclassification occurred between some stages; no missing transformation has been inferred or recreated here. Inspect the script constants and input schema before running a stage on new data. Some stages make many concurrent paid API calls.
-
-## Configuration
-
-| Variable or option | Meaning |
-| --- | --- |
-| OPT_ARENA_API_KEY | Preferred API credential. Interfaces and legacy scripts also accept OPENAI_API_KEY or DEEPSEEK_API_KEY. |
-| OPT_ARENA_BASE_URL | OpenAI-compatible endpoint. Main interfaces use the client default if unset. Legacy annotation scripts retain their previous endpoint as default. |
-| OPT_ARENA_MODEL | Model name; defaults to gpt-4o-mini. |
-| OPTMATH_DATA_DIR | Local legacy data directory; defaults to ./data relative to the repository. |
-| EVO_OPT_ARENA_DIR | Optional directory for alternate generation prompts and reference catalogs; defaults to this repository. |
-| OPTMATH_PT_STATS_FILE | Optional statistics file for the standalone generator; defaults to data/problem_types_atomic_info_statistics.json. |
-| OPTMATH_EVALUATION_STATS_FILE | Evaluation statistics for the standalone generator in automatic mode; defaults to data/problem_type_analysis.json. |
-| --*-file options | Override catalog, dataset, or prompt-module paths in the main interfaces. |
-
-Use [.env.example](.env.example) as a list of variables to configure. Scripts read environment variables; they do not load an .env file automatically. Never commit real keys.
-
-## Data and reproducibility
-
-The bundled catalogs support an offline resource-loading check and analysis metadata preparation. Full experiments require absent source problems and intermediate files, an API account, and the original model/provider configuration. LLM responses can differ across providers, versions, and sampling runs. The generation interface supports --seed for local kernel and atom sampling; it does not fix remote model outputs.
-
-The project owner has confirmed that the five bundled JSON reference catalogs may be redistributed under CC BY 4.0. Their scope, attribution, and translation changes are recorded in [DATA_LICENSE.md](DATA_LICENSE.md). The provenance and reuse terms for any source dataset added later should be documented separately. No source download link or fixed dataset split can be confirmed from this checkout.
+The release includes Opt-Arena Eval, reference catalogs, and analysis and generation interfaces. Reproducing the complete study requires the annotated training data, intermediate artifacts, and model configuration used in the paper. The 5K training Core-Set is separate from the 405-record evaluation set.
 
 ## Citation
 
-If you use this repository, please cite [Opt-Arena](https://openreview.net/forum?id=HKMOHcifiP). The author names and venue below follow the citation information provided by the project owner. A machine-readable citation is also available in [CITATION.cff](CITATION.cff).
+Please cite the [paper](https://openreview.net/forum?id=HKMOHcifiP). Machine-readable metadata is in [CITATION.cff](CITATION.cff).
 
 ~~~bibtex
-@inproceedings{anonymous2026optarena,
-  title={Opt-Arena: Evaluating, Selecting, and Generating Optimization Modeling Data via Tripartite Graphs},
-  author={Yian Xu and Xiongwei Han and Jie Wang and Haoyang Liu and Yuyang Cai and Boxuan Niu and Mingxuan Yuan},
-  booktitle={The Fortieth Annual Conference on Neural Information Processing Systems},
-  year={2026},
-  url={https://openreview.net/forum?id=HKMOHcifiP}
+@inproceedings{xu2026optarena,
+  title = {Opt-Arena: Evaluating, Selecting, and Generating Optimization Modeling Data via Tripartite Graphs},
+  author = {Yian Xu and Xiongwei Han and Jie Wang and Haoyang Liu and Yuyang Cai and Boxuan Niu and Mingxuan Yuan},
+  booktitle = {The Fortieth Annual Conference on Neural Information Processing Systems},
+  year = {2026},
+  url = {https://openreview.net/forum?id=HKMOHcifiP}
 }
 ~~~
 
 ## License
 
-The source code and documentation are licensed under the [MIT License](LICENSE). The five bundled reference JSON catalogs are licensed separately under [CC BY 4.0](DATA_LICENSE.md). These terms do not cover third-party dependencies, source datasets absent from this repository, or generated outputs.
+Code and documentation are under the [MIT License](LICENSE). The five reference catalogs in `data/` are byte-identical to the files covered by [DATA_LICENSE.md](DATA_LICENSE.md) under CC BY 4.0; that document still names the constraint catalog with its former `-train` suffix. The current license files do not specify terms for `Opt-Arena Eval.jsonl`; its rights holder must confirm them before publication.
